@@ -153,6 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Color(0xFF171A25),
+                      fontWeight: FontWeight.w600,
+                    letterSpacing: 1.0, // Adjust the spacing here
+                     fontSize: 14, 
                     ),
                   ),
                 ),

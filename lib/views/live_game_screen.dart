@@ -21,7 +21,7 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
   int _elapsedMinutes = 0;
   String? _selectedTeam;
   String? _tagDescription;
-  List<Map<String, dynamic>> _tags = [];
+  final List<Map<String, dynamic>> _tags = [];
 
   void _startGame() {
     setState(() {
@@ -38,33 +38,39 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
     });
   }
 
-  String _formatMinutes(int minutes) {
+String _formatMinutes(int minutes) {
+  if (minutes < 10) {
+    return '$minutes\'';
+  } else {
     return '${minutes.toString().padLeft(2, '0')}\'';
   }
+}
 
-  void _addTag() {
-    if (_selectedTeam != null &&
-        _tagDescription != null &&
-        _tagDescription!.isNotEmpty) {
-      setState(() {
-        _tags.add({
-          'team': _selectedTeam,
-          'description': _tagDescription,
-          'time': _formatMinutes(_elapsedMinutes),
-        });
-        _tagDescription = '';
-        _selectedTeam = null;
+
+void _addTag() {
+  if (_selectedTeam != null &&
+      _tagDescription != null &&
+      _tagDescription!.isNotEmpty) {
+    setState(() {
+      _tags.add({
+        'team': _selectedTeam,
+        'description': _tagDescription,
+        'time': _formatMinutes(_elapsedMinutes),
       });
-      Navigator.of(context).pop();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-          'Select a team and enter a description',
-          style: TextStyle(fontFamily: 'Montserrat'),
-        ),
-      ));
-    }
+      _tagDescription = '';
+      _selectedTeam = null;
+    });
+    Navigator.of(context).pop();
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text(
+        'Select a team and enter a description',
+        style: TextStyle(fontFamily: 'Montserrat'),
+      ),
+    ));
   }
+}
+
 
   void _showTagDialog() {
     showDialog(
@@ -134,7 +140,7 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
             Expanded(
               child: Text(
                 widget.game.competition,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white,fontFamily: 'Montserrat'),
                 overflow: TextOverflow.ellipsis, // Handle overflow with ellipsis
               ),
             ),
@@ -147,60 +153,72 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: mediaQuery.size.width * 0.02), // Responsive padding
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildTeamLogo(widget.game.club1Picture, widget.game.clubName1),
-                  const Text(
-                    '-',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+            Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: mediaQuery.size.width * 0.02), // Responsive padding
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildTeamLogo(widget.game.club1Picture, widget.game.clubName1),
+                      if (_isGameStarted)
+                        Expanded(
+                          child: Center(
+                            child: TimerDisplay(
+                              elapsedSeconds: _elapsedSeconds,
+                              textColor: Colors.white,
+                            ),
+                          ),
+                        )
+                      else
+                        const Text(
+                          '-',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      _buildTeamLogo(widget.game.club2Picture, widget.game.clubName2),
+                    ],
                   ),
-                  _buildTeamLogo(widget.game.club2Picture, widget.game.clubName2),
-                ],
-              ),
-            ),
-            Center(
-              child: Text(
-                widget.game.startTime,
-                style: const TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                onPressed: _isGameStarted ? null : _startGame,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0),
-                  textStyle: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                  ),
-                  minimumSize: Size(screenWidth * 0.5, 50), // Responsive button size
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  disabledBackgroundColor:
-                      const Color.fromRGBO(116, 229, 144, 1.0),
-                  disabledForegroundColor: Colors.white,
                 ),
-                child: Text(
-                  _isGameStarted ? 'Game Started' : 'Start Game',
-                  style: const TextStyle(fontFamily: 'Montserrat'),
-                ),
-              ),
+              ],
             ),
-            if (_isGameStarted)
+            if (!_isGameStarted)
               Center(
-                  child: TimerDisplay(
-                      elapsedSeconds: _elapsedSeconds,
-                      textColor: Colors.white,
-                  )),
-            if (_isGameStarted) ...[
+                child: Text(
+                  widget.game.startTime,
+                  style: const TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
+                ),
+              ),
+            const SizedBox(height: 10),
+            if (!_isGameStarted) 
+              Center(
+                child: ElevatedButton(
+                  onPressed: _startGame,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0),
+                    textStyle: const TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.white,
+                    ),
+                    minimumSize: Size(screenWidth * 0.5, 50), // Responsive button size
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
+                  ),
+                  child: const Text(
+                    'Start Game',
+                    style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.0, // Adjust the spacing here
+                    color: Color(0xFF171A25), fontSize: 14, 
+ ),
+                  ),
+                ),
+              )
+            else 
               Center(
                 child: ElevatedButton(
                   onPressed: _showTagDialog,
@@ -217,10 +235,14 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
                   ),
                   child: const Text(
                     'Add Tag',
-                    style: TextStyle(fontFamily: 'Montserrat'),
+                    style: TextStyle(fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.0, // Adjust the spacing here
+                    color: Color(0xFF171A25), fontSize: 14, ),
                   ),
                 ),
               ),
+            if (_isGameStarted) ...[
               Expanded(
                 child: ListView.separated(
                   itemCount: _tags.length,
@@ -254,8 +276,8 @@ class _LiveGameScreenState extends State<LiveGameScreen> {
     return Column(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width * 0.2, // Responsive size
-          height: MediaQuery.of(context).size.width * 0.2, // Maintain aspect ratio
+          width: MediaQuery.of(context).size.width * 0.15, // Responsive size
+          height: MediaQuery.of(context).size.width * 0.15, // Maintain aspect ratio
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),

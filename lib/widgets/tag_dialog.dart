@@ -81,28 +81,42 @@ class TagDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: onCancel,
-          child: const Text(
-            'Cancel',
-            style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
-          ),
-        ),
+      OutlinedButton(
+  onPressed: onCancel,
+  style: OutlinedButton.styleFrom(
+    side: const BorderSide(color: Color.fromRGBO(116, 229, 144, 1.0), width: 2), // Border color and width
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(6.0), // Border radius
+    ),
+  ),
+  child: const Text(
+    'Cancel',
+    style: TextStyle(
+      color: Colors.white,
+      fontFamily: 'Montserrat',
+      letterSpacing: 1.0,
+      fontSize: 14.0,
+      fontWeight: FontWeight.w600 // Adjust the letter spacing here
+    ),
+  ),
+)
+,
         ElevatedButton(
           onPressed: onSave,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0),
-            textStyle: const TextStyle(
-              fontSize: 16.0,
-              color: Colors.white,
-            ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6.0),
             ),
           ),
           child: const Text(
             'Save',
-            style: TextStyle(fontFamily: 'Montserrat'),
+             
+            style: TextStyle(fontFamily: 'Montserrat',
+            fontSize: 14.0,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.0,
+            color: Color(0xFF171A25)),
           ),
         ),
       ],
