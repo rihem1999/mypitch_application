@@ -9,8 +9,16 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Taille des polices et des images ajustées dynamiquement
+    double clubNameFontSize = screenWidth < 350 ? 12.0 : screenWidth < 500 ? 16.0 : 20.0;
+    double imageSize = screenWidth < 350 ? 20.0 : screenWidth < 500 ? 30.0 : 40.0;
+    FontWeight clubNameFontWeight =
+        screenWidth < 350 ? FontWeight.normal : FontWeight.bold;
+
     return Container(
-      color: const Color(0xFF31343F), // Set the card background color here
+      color: const Color(0xFF31343F),
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,19 +38,21 @@ class GameCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6.0),
                         child: Image.asset(
                           game.club1Picture,
-                          width: 40, // Adjust width as needed
-                          height: 40, // Adjust height as needed
+                          width: imageSize, // Taille de l'image dynamique
+                          height: imageSize, // Taille de l'image dynamique
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(width: 12.0),
-                      Text(
-                        game.clubName1,
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.white,
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: Text(
+                          game.clubName1,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: clubNameFontWeight,
+                            fontSize: clubNameFontSize, // Taille de la police dynamique
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
@@ -53,22 +63,24 @@ class GameCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(6.0),
                         child: Image.asset(
                           game.club2Picture,
-                          width: 40, // Adjust width as needed
-                          height: 40, // Adjust height as needed
+                          width: imageSize, // Taille de l'image dynamique
+                          height: imageSize, // Taille de l'image dynamique
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(width: 12.0),
-                      Text(
-                        game.clubName2,
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.white,
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: Text(
+                          game.clubName2,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: clubNameFontWeight,
+                            fontSize: clubNameFontSize, // Taille de la police dynamique
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
@@ -89,19 +101,18 @@ class GameCard extends StatelessWidget {
             ElevatedButton(
               onPressed: onEnterDugout,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0), // Button background color
-                minimumSize: const Size(120, 60), // Set button height here
+                backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0),
+                minimumSize: const Size(120, 60),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.0), // Rounded corners
+                  borderRadius: BorderRadius.circular(6.0),
                 ),
               ),
               child: const Text(
                 'Enter Dugout',
-              
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  letterSpacing: 1.0, // Adjust the spacing here
+                  letterSpacing: 1.0,
                   fontFamily: 'Montserrat',
                   color: Color(0xFF171A25),
                 ),
