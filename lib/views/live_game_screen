@@ -1,0 +1,175 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:mypitch_application/widgets/tag_dialog.dart';
+import 'package:mypitch_application/widgets/timer_display.dart';
+
+class LiveGameScreen extends StatefulWidget {
+  @override
+  _LiveGameScreenState createState() => _LiveGameScreenState();
+}
+
+class _LiveGameScreenState extends State<LiveGameScreen> {
+  bool _isGameStarted = false;
+  Timer? _timer;
+  int _elapsedSeconds = 0;
+  int _elapsedMinutes = 0;
+  String? _selectedTeam;
+  String? _tagDescription;
+  List<Map<String, dynamic>> _tags = [];
+
+  void _startGame() {
+    setState(() {
+      _isGameStarted = true;
+      _elapsedSeconds = 0;
+      _elapsedMinutes = 0;
+    });
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _elapsedSeconds++;
+        _elapsedMinutes = _elapsedSeconds ~/ 60;
+      });
+    });
+  }
+
+  String _formatMinutes(int minutes) {
+    return '${minutes.toString().padLeft(2, '0')}\'';
+  }
+
+  void _addTag() {
+    if (_selectedTeam != null && _tagDescription != null && _tagDescription!.isNotEmpty) {
+      setState(() {
+        _tags.add({
+          'team': _selectedTeam,
+          'description': _tagDescription,
+          'time': _formatMinutes(_elapsedMinutes),
+        });
+        _tagDescription = '';
+        _selectedTeam = null;
+      });
+      Navigator.of(context).pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Please select a team and enter a description'),
+      ));
+    }
+  }
+
+  void _showTagDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TagDialog(
+          selectedTeam: _selectedTeam,
+          tagDescription: _tagDescription,
+          teams: ['Klaskvik (FAI)', 'Borac Banja Luka (BIH)'],
+          onTeamChanged: (newValue) {
+            setState(() {
+              _selectedTeam = newValue;
+            });
+          },
+          onDescriptionChanged: (value) {
+            setState(() {
+              _tagDescription = value;
+            });
+          },
+          onSave: _addTag,
+          onCancel: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildTeamLogo('assets/Liverpool.png', 'Klaskvik (FAI)'),
+                  Text(
+                    '-',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  _buildTeamLogo('assets/munutd.png', 'Borac Banja Luka (BIH)'),
+                ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: _isGameStarted ? null : _startGame,
+              child: Text(_isGameStarted ? 'Game Started' : 'Start Game'),
+            ),
+            if (_isGameStarted) TimerDisplay(elapsedSeconds: _elapsedSeconds),
+            if (_isGameStarted) ...[
+              ElevatedButton(
+                onPressed: _showTagDialog,
+                child: Text('Add Tag'),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _tags.length,
+                  itemBuilder: (context, index) {
+                    final tag = _tags[index];
+                    return ListTile(
+                      title: Text(
+                        '${tag['team']} - ${tag['description']}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        'Time: ${tag['time']}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTeamLogo(String assetPath, String teamName) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(assetPath, width: 50, height: 50),
+        ),
+        SizedBox(height: 8),
+        Text(
+          teamName,
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
+    );
+  }
+}

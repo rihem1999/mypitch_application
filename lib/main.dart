@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GameViewModel()),
       ],
       child: MaterialApp(
-      title: 'MyPatch',
+      title: 'MyPitch',
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 174, 190, 202),
       ),

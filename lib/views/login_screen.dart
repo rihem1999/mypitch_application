@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Divider(
-                      color: Colors.white,
+                      color: Color.fromRGBO(255, 255, 255, 1),
                     ),
                   ),
                 ],

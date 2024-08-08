@@ -6,6 +6,7 @@ class GameService {
     await Future.delayed(Duration(seconds: 2));
     return [
       Game(clubName1: 'Club A', clubName2: 'Club B', startTime: DateTime.now()),
+      Game(clubName1: 'Club E', clubName2: 'Club F', startTime: DateTime.now()),
       Game(clubName1: 'Club C', clubName2: 'Club D', startTime: DateTime.now().subtract(Duration(minutes: 15))),
     ];
   }
