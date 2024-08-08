@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mypitch_application/viewmodels/auth_viewmodel.dart';
 import 'package:mypitch_application/views/home_screen.dart';
 import 'package:provider/provider.dart';

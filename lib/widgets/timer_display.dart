@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class TimerDisplay extends StatelessWidget {
   final int elapsedSeconds;
+  final Color textColor;
 
-  TimerDisplay({required this.elapsedSeconds});
+  TimerDisplay({required this.elapsedSeconds, this.textColor = Colors.white});
 
   String _formatTime(int seconds) {
     int minutes = seconds ~/ 60;
@@ -17,7 +18,7 @@ class TimerDisplay extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         _formatTime(elapsedSeconds),
-        style: TextStyle(fontSize: 24),
+        style: TextStyle(fontSize: 24, color: textColor),
       ),
     );
   }

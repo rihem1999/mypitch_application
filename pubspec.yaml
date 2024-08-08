@@ -65,9 +65,13 @@ flutter:
   assets:
     - assets/logo-full.svg
     - assets/Liverpool.png
-    - assets/munutd.png
+    - assets/manutd.png
+    - assets/arsenal.png
+    - assets/real.png
     - assets/icons/gmail.png
     - assets/icons/apple.png
+    - assets/cl.png
+    - assets/pl.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
