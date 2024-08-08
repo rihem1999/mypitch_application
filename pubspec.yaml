@@ -72,7 +72,12 @@ flutter:
     - assets/icons/apple.png
     - assets/cl.png
     - assets/pl.png
-
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
