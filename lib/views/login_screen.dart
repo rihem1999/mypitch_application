@@ -17,7 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double logoWidth = screenWidth * 0.4; // 30% of the screen width for the logo
+    final double logoWidth =
+        screenWidth * 0.4; // 30% of the screen width for the logo
 
     return Scaffold(
       appBar: AppBar(
@@ -34,36 +35,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 'assets/logo-full.svg', // Ensure the path is correct
                 width: logoWidth, // Set the logo width
               ),
-              const SizedBox(height: 16.0), // Add some spacing between the logo and the welcome text
-              const SizedBox(height: 20),
+              const SizedBox(
+                  height:
+                      16.0), // Add some spacing between the logo and the welcome text
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'the essence of every match\n at your fingertips.\n'.toUpperCase(),
+                      text: 'the essence of every match\n at your fingertips.\n'
+                          .toUpperCase(),
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
                       text: 'Automatically.'.toUpperCase(),
                       style: const TextStyle(
                         color: Color.fromRGBO(116, 229, 144, 1.0),
                         fontSize: 18.0,
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 32.0), // Add some spacing between the welcome text and text fields
+              const SizedBox(
+                  height:
+                      32.0), // Add some spacing between the welcome text and text fields
               Container(
                 width: screenWidth * 0.7, // 70% of the available width
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.0), // Set the border radius
+                  borderRadius:
+                      BorderRadius.circular(6.0), // Set the border radius
                   color: Colors.white, // Set the background color
                 ),
                 child: TextField(
@@ -71,15 +78,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: InputBorder.none, // Remove the default border
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0), // Optional: Add padding inside the TextField
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal:
+                            16.0), // Optional: Add padding inside the TextField
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0), // Add some spacing between the fields
+              const SizedBox(
+                  height: 16.0), // Add some spacing between the fields
               Container(
                 width: screenWidth * 0.7, // 70% of the available width
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.0), // Set the border radius
+                  borderRadius:
+                      BorderRadius.circular(6.0), // Set the border radius
                   color: Colors.white, // Set the background color
                 ),
                 child: TextField(
@@ -88,10 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: InputBorder.none, // Remove the default border
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0), // Optional: Add padding inside the TextField
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal:
+                            16.0), // Optional: Add padding inside the TextField
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: Colors.grey,
                       ),
                       onPressed: () {
@@ -103,33 +118,43 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0), // Add some spacing between the fields
+              const SizedBox(
+                  height: 16.0), // Add some spacing between the fields
               SizedBox(
                 width: screenWidth * 0.7, // 70% of the available width
                 child: ElevatedButton(
                   onPressed: () async {
                     await Provider.of<AuthViewModel>(context, listen: false)
                         .login(_emailController.text, _passwordController.text);
-                    if (Provider.of<AuthViewModel>(context, listen: false).isAuthenticated) {
+                    if (Provider.of<AuthViewModel>(context, listen: false)
+                        .isAuthenticated) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-      ));
+                        builder: (context) => HomeScreen(),
+                      ));
                     } else {
                       // Afficher une erreur
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(116, 229, 144, 1.0), // Set the button background color
+                    backgroundColor: const Color.fromRGBO(
+                        116, 229, 144, 1.0), // Set the button background color
                     textStyle: const TextStyle(
                       fontSize: 16.0, // Set the font size
                       color: Colors.white, // Set the text color
                     ),
                     minimumSize: const Size(0, 50), // Set the minimum height
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0), // Set the border radius
+                      borderRadius:
+                          BorderRadius.circular(6.0), // Set the border radius
                     ),
                   ),
-                  child: const Text('Login'),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Color(0xFF171A25),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 8.0),
@@ -140,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text(
                   'Forgot your password ?',
                   style: TextStyle(
+                    fontFamily: 'Montserrat',
                     color: Colors.white,
                   ),
                 ),
@@ -156,6 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     'Or',
                     style: TextStyle(
+                      fontFamily: 'Montserrat',
                       color: Colors.white,
                     ),
                   ),
@@ -176,7 +203,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 24.0,
                     height: 24.0,
                   ),
-                  label: const Text('Continue with Google'),
+                  label: const Text('Continue with Google', style: TextStyle(
+                    fontFamily: 'Montserrat'
+                  ),),
                   onPressed: () {
                     // Handle Google login
                   },
@@ -184,7 +213,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: const Color(0xFF171A25),
                     foregroundColor: Colors.white,
                     side: const BorderSide(
-                      color: Color.fromRGBO(116, 229, 144, 1.0), // Set the button background color
+                      color: Color.fromRGBO(116, 229, 144,
+                          1.0), // Set the button background color
                     ), // Set the border color
                     textStyle: const TextStyle(
                       fontSize: 16.0,
@@ -205,7 +235,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 24.0,
                     height: 24.0,
                   ),
-                  label: const Text('Continue with Facebook'),
+                  label: const Text('Continue with Facebook', style: TextStyle(
+                    fontFamily: 'Montserrat'
+                  ),),
                   onPressed: () {
                     // Handle Facebook login
                   },
@@ -213,7 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: const Color(0xFF171A25),
                     foregroundColor: Colors.white,
                     side: const BorderSide(
-                      color: Color.fromRGBO(116, 229, 144, 1.0), // Set the button background color
+                      color: Color.fromRGBO(116, 229, 144,
+                          1.0), // Set the button background color
                     ), // Set the border color
                     textStyle: const TextStyle(
                       fontSize: 16.0,

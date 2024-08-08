@@ -21,13 +21,14 @@ class GameCard extends StatelessWidget {
               children: [
                 // Club 1 Image with Name
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
                         game.club1Picture,
-                        width: 20,
-                        height: 20,
+                        width: 30,
+                        height: 30,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -35,6 +36,7 @@ class GameCard extends StatelessWidget {
                     Text(
                       game.clubName1,
                       style: const TextStyle(
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
                         color: Colors.white,
@@ -45,13 +47,16 @@ class GameCard extends StatelessWidget {
                 const SizedBox(height: 3.0),
                 // Club 2 Image with Name
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
+
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
                         game.club2Picture,
-                        width: 20,
-                        height: 20,
+                        width: 30,
+                        height: 30,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -59,6 +64,7 @@ class GameCard extends StatelessWidget {
                     Text(
                       game.clubName2,
                       style: const TextStyle(
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
                         color: Colors.white,
@@ -71,6 +77,7 @@ class GameCard extends StatelessWidget {
                   '${game.dayOfMatch}  ${game.startTime}',
                   style: const TextStyle(
                     fontSize: 12.0,
+                    fontFamily: 'Montserrat',
                     color: Colors.white,
                   ),
                 ), // Enter Dugout Button with Spacer
@@ -86,7 +93,8 @@ class GameCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.0), // Rounded corners
                 ),
               ),
-              child: const Text('Enter Dugout'),
+              child: const Text('Enter Dugout', style: TextStyle(fontFamily: 'Montserrat',
+                      color: Color(0xFF171A25)),),
             ),
           ],
         ),

@@ -18,7 +18,8 @@ class TimerDisplay extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         _formatTime(elapsedSeconds),
-        style: TextStyle(fontSize: 24, color: textColor),
+        style: TextStyle( color: textColor,fontFamily: 'Montserrat',
+),
       ),
     );
   }

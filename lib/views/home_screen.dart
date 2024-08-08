@@ -23,7 +23,11 @@ class HomeScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Hi, Rihem',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal),
                 ),
                 const Spacer(), // Pushes the avatar to the right side
                 // Square avatar with border
@@ -33,10 +37,12 @@ class HomeScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     border: Border.all(
-                      color: const Color.fromRGBO(116, 229, 144, 1.0), // Border color
+                      color: const Color.fromRGBO(
+                          116, 229, 144, 1.0), // Border color
                       width: 2.0, // Border width
                     ),
-                    borderRadius: BorderRadius.circular(8.0), // Border radius for square shape
+                    borderRadius: BorderRadius.circular(
+                        8.0), // Border radius for square shape
                     color: Colors.grey.shade800, // Background color
                   ),
                   child: const Icon(
@@ -47,7 +53,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16), // Add some space between text and content
+            const SizedBox(
+                height: 16), // Add some space between text and content
             Expanded(
               child: Consumer<GameViewModel>(
                 builder: (context, viewModel, child) {
@@ -62,15 +69,18 @@ class HomeScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final game = viewModel.games[index];
                             return Container(
-                              margin: const EdgeInsets.only(bottom: 16), // Space between cards
+                              margin: const EdgeInsets.only(
+                                  bottom: 16), // Space between cards
                               child: SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.2, // 20% of screen height
+                                height: MediaQuery.of(context).size.height *
+                                    0.25, // 25% of screen height
                                 child: GameCard(
                                   game: game,
                                   onEnterDugout: () {
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder: (context) => LiveGameScreen(game: game),
+                                        builder: (context) =>
+                                            LiveGameScreen(game: game),
                                       ),
                                     );
                                   },
