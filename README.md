@@ -1,16 +1,36 @@
-# mypitch_application
-
-A new Flutter project.
+# MyPitch Application
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will help you get a copy of the application up and running on your local machine.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Make sure you have the following installed:
+- [Flutter](https://flutter.dev/docs/get-started/install) (latest stable version)
+- [Dart SDK](https://dart.dev/get-dart)
+- [An IDE](https://flutter.dev/docs/get-started/editor) (such as Visual Studio Code or Android Studio)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/yourusername/your-repository.git
+    cd your-repository
+    ```
+
+2. **Install dependencies:**
+
+    Ensure you're in the root directory of the project and run:
+
+    ```bash
+    flutter pub get
+    ```
+
+### Running the Application
+
+To run the app on an emulator or connected device, use:
+
+```bash
+flutter run
